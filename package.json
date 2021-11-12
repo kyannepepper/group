@@ -1,5 +1,4 @@
 {
-  "main": "index.js",
   "scripts": {
     "android": "expo run:android",
     "ios": "expo run:ios",
@@ -7,10 +6,16 @@
     "start": "react-native start"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^10.0.0",
     "expo": "~43.0.2",
     "expo-splash-screen": "~0.13.5",
     "expo-status-bar": "~1.1.0",
     "expo-updates": "~0.10.13",
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "firebase": "^7.13.1",
+    "http": "^0.0.1-security",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.3",
@@ -23,5 +28,6 @@
   "devDependencies": {
     "@babel/core": "^7.12.9"
   },
-  "private": true
+  "private": true,
+  "proxy": "http://localhost:3030"
 }
