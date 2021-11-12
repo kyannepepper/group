@@ -1,7 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
 import { StyleSheet, Text, View, TextInput, Button, Dimensions, Image, ImageBackground, TouchableHighlight } from 'react-native';
-
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faCogs, faGamepad, faPenSquare, faTimes, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import groupsScreen from './screens/groupsScreen';
@@ -16,12 +17,34 @@ export default function App() {
   const [number, onChangeNumber] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-
   return (
     <>
     {isLoggedIn ? 
+
       <NavigationContainer>
-        <Tab.Navigator>
+        <Tab.Navigator
+          screenOptions={({route}) => ({
+            tabBarIcon: () => {
+              let iconName;
+              if (route.name === 'Group') {
+                iconName = faUsers;
+              } else if (route.name === 'Services') {
+                iconName = faPenSquare;
+              } else if (route.name === 'Games') {
+                iconName = faGamepad
+              } 
+              return <FontAwesomeIcon icon={iconName} color={'black'} size={40} className='modal-close-button-top'/>
+            },
+          })}
+          tabBarOptions={{
+            activeTintColor: 'white',
+            inactiveTintColor: 'lightgray',
+            activeBackgroundColor: 'darkgray',
+            inactiveBackgroundColor: 'darkgray'
+
+          }}
+          
+        >
           <Tab.Screen name="Group" component={groupsScreen} />
           <Tab.Screen name="Services" component={servicesScreen} />
         </Tab.Navigator>
@@ -35,8 +58,7 @@ export default function App() {
           <View style={styles.haveaccount}>
             <ImageBackground resizeMode="cover"
               source={ require("./assets/people.png") }
-              style={{ width: Dimensions. get('window'). width, height: 500, flex: 1, justifyContent: 'flex-start', alignItems: 'center', paddingTop: 375,
-              justifyContent: 'center', }}
+              style={styles.background}
             >
                 <TouchableHighlight onPress={() => setIsLoggedIn(true)}
                   style={{
@@ -90,5 +112,15 @@ const styles = StyleSheet.create({
     color: '#1B1D21',
     textAlign: "center",
     margin: 3,
+  },
+  background: {
+    width: Dimensions.get('window').width, 
+    height: 500, 
+    flex: 1, 
+    justifyContent: 'flex-start', 
+    alignItems: 'center', 
+    paddingTop: 375,
+    justifyContent: 'center'
   }
+
 });
