@@ -6,6 +6,8 @@ const express = require('express'),
     server = http.createServer(app),
     firebase = require('firebase'),
     userCtrl = require('./controllers/userCtrl'),
+    messagesCtrl = require('./controllers/messagesCtrl'),
+    groupCtrl = require('./controllers/groupCtrl'),
     {SERVER_PORT, SESSION_SECRET} = process.env
 
 var firebaseConfig = {
@@ -37,5 +39,13 @@ app.get('/auth/quickLogin', userCtrl.quickLogin);
 app.get('/auth/logout', userCtrl.signOut);
 app.post('/auth/signUp', userCtrl.signUp);
 
+app.post('/api/messages', messagesCtrl.sendMessage);
+
+app.post('/api/groups', groupCtrl.createGroup);
+app.put('/api/groups', groupCtrl.updateMoney);
+app.delete('/api/groups/:id', groupCtrl.deleteGroup);
+app.post('/api/request', groupCtrl.createRequest);
+app.put('/api/request', groupCtrl.acceptRequest);
+app.delete('/api/request/:id', groupCtrl.deleteGroup);
+
 server.listen(SERVER_PORT, () => console.log(`Server has started on port ${SERVER_PORT}`));
-    
