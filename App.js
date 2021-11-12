@@ -7,7 +7,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import groupsScreen from './screens/groupsScreen';
 import servicesScreen from './screens/servicesScreen';
-
+import SignUp from './SignUp'
 
 const Tab = createBottomTabNavigator();
 
@@ -16,6 +16,7 @@ export default function App() {
   const [text, onChangeText] = useState("Useless Text");
   const [number, onChangeNumber] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isSigningUp, setIsSigningUp] = useState(false);
 
   return (
     <>
@@ -50,6 +51,9 @@ export default function App() {
         </Tab.Navigator>
       </NavigationContainer>
       : 
+      isSigningUp ? 
+        <SignUp />
+        :
       <View style={styles.container}>
       <Image
         source={ require("./assets/logo.png") }
@@ -60,7 +64,7 @@ export default function App() {
               source={ require("./assets/people.png") }
               style={styles.background}
             >
-                <TouchableHighlight onPress={() => setIsLoggedIn(true)}
+                <TouchableHighlight onPress={() => setIsSigningUp(true)}
                   style={{
                     justifyContent: "center",
                     width: 300,
