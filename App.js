@@ -33,7 +33,7 @@ export default function App() {
               } else if (route.name === 'Services') {
                 iconName = faPenSquare;
               } else if (route.name === 'Games') {
-                iconName = faGamepad
+                iconName = fa
               } 
               return <FontAwesomeIcon icon={iconName} color={'black'} size={40} className='modal-close-button-top'/>
             },

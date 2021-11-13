@@ -14,8 +14,7 @@ const Tab = createBottomTabNavigator();
 
 
 export default function App() {
-  const [text, onChangeText] = useState("Useless Text");
-  const [number, onChangeNumber] = useState(null);
+  
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isSigningUp, setIsSigningUp] = useState(false);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
@@ -33,7 +32,7 @@ export default function App() {
               } else if (route.name === 'Services') {
                 iconName = faPenSquare;
               } else if (route.name === 'Games') {
-                iconName = faGamepad
+                iconName = fa
               } 
               return <FontAwesomeIcon icon={iconName} color={'black'} size={40} className='modal-close-button-top'/>
             },
@@ -54,9 +53,9 @@ export default function App() {
       : 
       isSigningUp ? 
           isLoggingIn ?
-        <SignUp setIsSigningUp={setIsLoggingIn} />
+          <Login setIsLoggingIn={setIsLoggingIn}/>
         :
-        <Login setIsSigningUp={setIsLoggingIn}/>
+          <SignUp setIsLoggingIn={setIsLoggingIn} />
         :
       <View style={styles.container}>
       <Image

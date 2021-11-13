@@ -2,6 +2,13 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { Dimensions } from 'react-native';
 import { StyleSheet, Text, View, TextInput, Button, Image, ImageBackground, TouchableHighlight } from 'react-native';
+<<<<<<< Updated upstream
+=======
+import { withSafeAreaInsets } from 'react-native-safe-area-context';
+import { NavigationContainer } from '@react-navigation/native';
+import GroupClickable from './GroupClickable';
+import GroupInvite from './GroupInvite';
+>>>>>>> Stashed changes
 export default function App() {
   const [fname, setFname] = React.useState("");
   const [lname, setLname] = React.useState("");
@@ -25,11 +32,11 @@ export default function App() {
   style={{marginLeft: 30, marginBottom: 0, width: 100, height: 50, resizeMode: 'contain' }}></Image>
     </View>
 
+    <GroupClickable></GroupClickable>
+    <GroupInvite></GroupInvite>
 
-    <View style={styles.infobox}><Text style={{color: 'white', fontSize: 30, textAlign: 'center',}}>+ Create Group</Text></View>
+    <TouchableHighlight style={styles.infobox} onPress={()=>{props.setIsLoggingIn(false)}}><Text style={{color: 'white', fontSize: 30, textAlign: 'center',}}>+ Create Group</Text></TouchableHighlight>
     
-
-
     </View>
   );
 }

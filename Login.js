@@ -16,7 +16,7 @@ export default function App(props) {
   function login() {
     var data = "&username=" + encodeURIComponent(username);
     data += "&password=" + encodeURIComponent(password);
-    return fetch('http://172.20.10.11:3030/auth/login', {
+    return fetch('http://172.20.10.7:3030/auth/login', {
       method: "POST",
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -85,7 +85,6 @@ export default function App(props) {
          <Text style={{color: 'white'}}>Login</Text>
       </TouchableHighlight>
     <View style={{flex: 0, flexDirection: 'row', width: Dimensions. get('window'). width, alignItems: 'center', justifyContent: 'center',}}><Text style={styles.blue}>Don't have an account?</Text><TouchableHighlight onPress={()=>{props.setIsLoggingIn(false)}}><Text style={{fontSize: 17,
-    fontFamily: 'Roboto',
     color: 'white',
     textAlign: "center",
     margin: 3,}}>Sign Up</Text></TouchableHighlight></View> 
