@@ -2,14 +2,15 @@ import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
 import { StyleSheet, Text, View, TextInput, Button, Dimensions, Image, ImageBackground, TouchableHighlight } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faGamepad, faPenSquare, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faCogs, faGamepad, faPenSquare, faTimes, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import groupsScreen from './screens/groupsScreen';
 import servicesScreen from './screens/servicesScreen';
-import SignUp from './SignUp'
+import SignUp from './SignUp';
 import Login from './Login';
-
+import CreateEvent from './CreateEvent';
+import chatScreen from './screens/chatScreen';
 const Tab = createBottomTabNavigator();
 
 
@@ -26,29 +27,37 @@ export default function App() {
       <NavigationContainer>
         <Tab.Navigator
           screenOptions={({route}) => ({
-            tabBarIcon: () => {
+            tabBarIcon: ({focused}) => {
               let iconName;
               if (route.name === 'Group') {
+                iconName = faUsers;
+              } else if (route.name === 'Chat') {
                 iconName = faUsers;
               } else if (route.name === 'Services') {
                 iconName = faPenSquare;
               } else if (route.name === 'Games') {
-                iconName = fa
-              } 
-              return <FontAwesomeIcon icon={iconName} color={'black'} size={40} className='modal-close-button-top'/>
+                iconName = fa;
+              } else if (route.name === 'Create an Event') {
+                iconName = faUsers;
+              }
+              return <FontAwesomeIcon icon={iconName} color={focused ? '#22d3ad' : 'lightgray'} size={40} className='modal-close-button-top'/>
             },
           })}
           tabBarOptions={{
-            activeTintColor: 'white',
+            activeTintColor: '#22d3ad',
             inactiveTintColor: 'lightgray',
-            activeBackgroundColor: 'darkgray',
-            inactiveBackgroundColor: 'darkgray'
+            activeBackgroundColor: '#7839a4',
+            inactiveBackgroundColor: '#7839a4',
+            style: {height: 80, paddingBottom: 10, backgroundColor: '#7839a4', marginTop: -5,}
 
           }}
           
         >
+          <Tab.Screen name="Chat" component={chatScreen} />
           <Tab.Screen name="Group" component={groupsScreen} />
           <Tab.Screen name="Services" component={servicesScreen} />
+          <Tab.Screen name="Create an Event" component={CreateEvent} />
+          
         </Tab.Navigator>
       </NavigationContainer>
       : 
@@ -80,7 +89,7 @@ export default function App() {
                 >
                   <Text style={{color: 'white'}}>Get Started</Text>
                 </TouchableHighlight>
-                <View style={{flex: 1, flexDirection: 'row', width: Dimensions. get('window'). width, alignItems: 'center', justifyContent: 'center',}}><Text style={styles.blue}>Already Have an account?</Text><TouchableHighlight onPress={()=>{setIsSigningUp(true); setIsLoggingIn(true);}}><Text style={styles.blue}>Login Here</Text></TouchableHighlight></View> 
+                <View style={{flex: 1, flexDirection: 'row', width: Dimensions. get('window'). width, alignItems: 'center', justifyContent: 'center',}}><Text style={styles.blue}>Already Have an account?</Text><TouchableHighlight onPress={()=>{}}><Text style={styles.blue}>Login Here</Text></TouchableHighlight></View> 
             </ImageBackground>
           </View>
         </View>

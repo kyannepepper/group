@@ -4,7 +4,7 @@ import { Dimensions } from 'react-native';
 import { StyleSheet, Text, View, ScrollView, TextInput, Button, Image, ImageBackground, TouchableHighlight } from 'react-native';
 import { withSafeAreaInsets } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
-export default function CreateGroup(props) {
+export default function CreateEvent(props) {
   const [username, setUsername] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [friends, setFriends] = React.useState("");
@@ -14,8 +14,9 @@ export default function CreateGroup(props) {
   }
 
   return (
+    
     <View style={styles.container}>
-    <View style={{backgroundColor: '#7839a4', width: Dimensions. get('window'). width, alignItems: 'center', height: 100, justifyContent: 'space-between', flex: 0, flexDirection: 'row', paddingTop:20, marginBottom: 20,}}>
+    <View style={{position:'fixe', backgroundColor: '#7839a4', width: Dimensions. get('window'). width, alignItems: 'center', height: 100, justifyContent: 'space-between', flex: 0, flexDirection: 'row', paddingTop:20,}}>
     <Image
   source={ require("./assets/logo.png") }
   style={{marginLeft: 30, marginBottom: 0, width: 100, height: 70, resizeMode: 'contain' }}></Image>
@@ -23,8 +24,10 @@ export default function CreateGroup(props) {
   source={ require("./assets/settings.png") }
   style={{marginLeft: 30, marginBottom: 0, width: 100, height: 50, resizeMode: 'contain' }}></Image>
     </View>
+    <ScrollView style={styles.scrollView}>
+    
   <View style={styles.holder}>
-    <Text style={{fontSize: 30, marginBottom: 5, color: 'white', }}>Create Event</Text>
+    <Text style={{marginTop: 10, fontSize: 30, marginBottom: 5, color: 'white', }}>Create Event</Text>
     <View
   style={{
     borderBottomColor: '#7839a4',
@@ -37,7 +40,7 @@ export default function CreateGroup(props) {
       <Text style={styles.formtitles}>Event Name</Text>
       <TextInput
         style={styles.inputs}
-        placeholder="MyGroup"
+        placeholder="MyEvent"
         placeholderTextColor = "#979797"
         onChangeText={username => setUsername(username)}
         defaultValue={username}
@@ -48,15 +51,16 @@ export default function CreateGroup(props) {
       <TextInput
         style={{height: 100,
           fontSize: 17,
-          borderColor: '#979797',
-          borderWidth: 1,
-          width: 250,
-          margin: 10,
+          width: 260,
+          backgroundColor: '#121314',
+          margin: 0,
           marginTop: 20,
+          padding: 15,
+          paddingTop: 10,
           marginBottom: 20,
-          color: 'white'}}
-        placeholder=""
-        placeholderTextColor = "#979797"
+        borderRadius: 5,}}
+        placeholder="MyDescription"
+        placeholderTextColor = "#5B5B5B"
         multiline={true}
         numberOfLines={3}
         onChangeText={description => setDescription(description)}
@@ -85,20 +89,22 @@ export default function CreateGroup(props) {
           alignItems: "center",
           backgroundColor: "#7839a4",
           borderRadius: 5,
-          marginBottom: 10,
+          marginBottom: 100,
         }}>
-         <Text style={{color: 'white'}}>Create Group</Text>
+         <Text style={{color: 'white'}}>Create Event</Text>
       </TouchableHighlight>
     
     </View>
+    </ScrollView>
     </View>
+    
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: Dimensions. get('window'). height,
+    
     backgroundColor: '#1B1D21',
     alignItems: 'center',
     
@@ -112,7 +118,10 @@ const styles = StyleSheet.create({
   formtitles: {
     fontSize: 20,
     color: 'white',
-  },
+  }, scrollView: {
+    backgroundColor: '#1B1D21',
+    height:9000
+},
   inputs: {
     height: 35,
     fontSize: 17,

@@ -2,8 +2,6 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { Dimensions } from 'react-native';
 import { StyleSheet, Text, View, TextInput, Button, Image, ImageBackground, TouchableHighlight } from 'react-native';
-import { withSafeAreaInsets } from 'react-native-safe-area-context';
-import { NavigationContainer } from '@react-navigation/native';
 import GroupClickable from './GroupClickable';
 import GroupInvite from './GroupInvite';
 export default function App() {
