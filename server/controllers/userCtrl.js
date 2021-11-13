@@ -25,37 +25,43 @@ const group_requests = {
 
 module.exports = {
     signUp: async (req, res) => {
-        db = firebase.firestore();
+        console.log("Inside of signUp", req.body)
+        const db = firebase.firestore();
         usernameInUse = await db.collection('users').where('username', '==', req.body.username).get();
         let users = [];
         usernameInUse.forEach(doc => users.push({...doc.data(), id:doc.id}));
+        console.log(users[0])
         if (users[0]) {
+            console.log("ERROR");
             return res.status(400).send(users[0].username + ' already taken');
         } else {
-            const hash = bcrypt.hashSync(password, 10);
+            const hash = bcrypt.hashSync(req.body.password, 10);
             const user = {
                 first_name: req.body.first_name,
                 last_name: req.body.last_name,
-                username: req.body.first_name,
+                username: req.body.username,
                 password: hash,
                 email: req.body.email,
                 money: 0
             }
-            const data = await db.colletion('users').add(user);
-            req.session.user = data;
-            res.status(200).send(data);
+            console.log("This shouldn't work");
+            await db.collection('users').add(user);
+            delete user.password;
+            req.session.user = user;
+            res.sendStatus(200);
+            // res.status(200).send(data);
         }
     },
     login: async (req, res) => {
         const db = firebase.firestore();
-        const {email, password} = req.body;
-        const user = await db.collection('users').where('email', '==', email).get();
+        console.log(req.body)
+        const {username, password} = req.body;
+        const user = await db.collection('users').where('username', '==', username).get();
         users = [];
         user.forEach(doc => users.push({...doc.data(), id:doc.id}));
 
         if (!users[0]) return res.status(401).send('Username or Password is incorrect');
-
-        const authorization = bcrypt.compareSync(password, users[0].hash);
+        const authorization = bcrypt.compareSync(password, users[0].password);
         if (!authorization) return res.status(401).send('Username or Password is incorrect');
         delete users[0].hash
         users[0].id = users[0].id;
@@ -67,6 +73,7 @@ module.exports = {
         return res.sendStatus(200);
     },
     quickLogin: async (req, res) => {
+        console.log("WORKING");
         if (req.session.user) {
             const db = firebase.firestore();
             const {username} = req.session.user;
