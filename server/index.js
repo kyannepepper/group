@@ -42,6 +42,7 @@ app.post('/auth/signUp', userCtrl.signUp);
 
 app.post('/api/messages', messagesCtrl.sendMessage);
 
+app.get('/api/groups', groupCtrl.getGroups);
 app.post('/api/groups', groupCtrl.createGroup);
 app.put('/api/groups', groupCtrl.updateMoney);
 app.delete('/api/groups/:id', groupCtrl.deleteGroup);

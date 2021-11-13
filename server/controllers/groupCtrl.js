@@ -1,10 +1,26 @@
+
 const firebase = require('firebase');
 
 module.exports = {
+    getGroups: async (req, res) => {
+        const db = firebase.firestore();
+        groups = await db.collection('group_requests').where('user_id', '==', req.session.user.id).get();
+        let allGroups = [];
+        groups.forEach(doc => allGroups.push({...doc.data(), id:doc.id}));
+        console.log(allGroups);
+        if (allGroups[0]){
+            console.log(allGroups);
+            return res.status(200).send(allGroups)
+        }
+    },
     createGroup: async (req, res) => {
         const db = firebase.firestore();
-        const data = await db.collection('groups').add({name:req.body.name, money:0});
-        res.status(200).send(data);
+        console.log(req.body);
+        const data = await db.collection('groups').add({group_name:req.body.group_name, description:req.body.description, money:0});
+        console.log(req.session.user)
+        const newUser = await db.collection('group_requests').add({accepted: true, is_admin:true, group_id:data.id, group_name:req.body.group_name, description:req.body.description, user_id:req.session.user.id});
+        console.log(newUser.id)
+        res.sendStatus(200);
     },
     deleteGroup: async (req, res) => {
         const {id} = req.params;
