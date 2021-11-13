@@ -54,9 +54,9 @@ export default function App() {
       : 
       isSigningUp ? 
           isLoggingIn ?
-          <Login setIsLoggingIn={setIsLoggingIn}/>
+        <SignUp setIsSigningUp={setIsLoggingIn} />
         :
-          <SignUp setIsLoggingIn={setIsLoggingIn} />
+        <Login setIsSigningUp={setIsLoggingIn}/>
         :
       <View style={styles.container}>
       <Image

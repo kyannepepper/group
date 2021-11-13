@@ -4,7 +4,6 @@ import { Dimensions } from 'react-native';
 import { StyleSheet, Text, View, TextInput, Button, Image, ImageBackground, TouchableHighlight } from 'react-native';
 import { withSafeAreaInsets } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
-import Login from './Login';
 export default function App(props) {
   const [fname, setFname] = React.useState("");
   const [lname, setLname] = React.useState("");
@@ -14,7 +13,7 @@ export default function App(props) {
   const [number, onChangeNumber] = React.useState(null);
 
   function changePage() {
-      navigation.navigate("Login")
+      navigation.navigate("SignUp")
   }
 
   return (
@@ -23,7 +22,7 @@ export default function App(props) {
   source={ require("./assets/logo.png") }
   style={{margin: 20, marginBottom: 0, width: 100, height: 70, resizeMode: 'contain' }}></Image>
   <View style={styles.holder}>
-    <Text style={{fontSize: 30, marginBottom: 5, color: 'white', }}>Sign Up</Text>
+    <Text style={{fontSize: 30, marginBottom: 5, color: 'white', }}>Login</Text>
     <View
   style={{
     borderBottomColor: '#7839a4',
@@ -33,26 +32,6 @@ export default function App(props) {
   }}
 />
     <View>
-      <Text style={styles.formtitles}>First Name</Text>
-      <TextInput
-        style={styles.inputs}
-        placeholder="John"
-        placeholderTextColor = "#979797"
-        onChangeText={fname => setFname(fname)}
-        defaultValue={fname}
-      />
-    </View>
-    <View>
-      <Text style={styles.formtitles}>Last Name</Text>
-      <TextInput
-        style={styles.inputs}
-        placeholder="Klein"
-        placeholderTextColor = "#979797"
-        onChangeText={lname => setLname(lname)}
-        defaultValue={lname}
-      />
-    </View>
-    <View>
       <Text style={styles.formtitles}>Username</Text>
       <TextInput
         style={styles.inputs}
@@ -60,16 +39,6 @@ export default function App(props) {
         placeholderTextColor = "#979797"
         onChangeText={username => setUsername(username)}
         defaultValue={username}
-      />
-    </View>
-    <View>
-      <Text style={styles.formtitles}>Email</Text>
-      <TextInput
-        style={styles.inputs}
-        placeholder="John.Klein@gmail.com"
-        placeholderTextColor = "#979797"
-        onChangeText={email => setEmail(email)}
-        defaultValue={email}
       />
     </View>
     <View>
@@ -85,7 +54,7 @@ export default function App(props) {
       
   </View>
     
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-end', marginBottom: 10,}}>
+    <View style={{flex: 1, alignItems: 'center', marginBottom: 10,}}>
   <TouchableHighlight onPress={()=>{changePage()}}
         style={{
           justifyContent: "center",
@@ -96,13 +65,13 @@ export default function App(props) {
           borderRadius: 5,
           marginBottom: 10,
         }}>
-         <Text style={{color: 'white'}}>Sign Up</Text>
+         <Text style={{color: 'white'}}>Login</Text>
       </TouchableHighlight>
-    <View style={{flex: 0, flexDirection: 'row', width: Dimensions. get('window'). width, alignItems: 'center', justifyContent: 'center',}}><Text style={styles.blue}>Already have an account?</Text><TouchableHighlight onPress={()=>{props.setIsLoggingIn(true)}}><Text style={{fontSize: 17,
+    <View style={{flex: 0, flexDirection: 'row', width: Dimensions. get('window'). width, alignItems: 'center', justifyContent: 'center',}}><Text style={styles.blue}>Don't have an account?</Text><TouchableHighlight onPress={()=>{props.setIsLoggingIn(false)}}><Text style={{fontSize: 17,
     fontFamily: 'Roboto',
     color: 'white',
     textAlign: "center",
-    margin: 3,}}>Login</Text></TouchableHighlight></View> 
+    margin: 3,}}>Sign Up</Text></TouchableHighlight></View> 
     </View>
     </View>
   );
