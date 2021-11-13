@@ -1,20 +1,36 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { Dimensions } from 'react-native';
 import { StyleSheet, Text, View, TextInput, Button, Image, ImageBackground, TouchableHighlight } from 'react-native';
-import { withSafeAreaInsets } from 'react-native-safe-area-context';
-import { NavigationContainer } from '@react-navigation/native';
-import Login from './Login';
+
 export default function App(props) {
   const [fname, setFname] = React.useState("");
   const [lname, setLname] = React.useState("");
-  const [username, setUsername] = React.useState("");
+  const [username, setUsername] = React.useState("Chinese");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [number, onChangeNumber] = React.useState(null);
 
-  function changePage() {
-      navigation.navigate("Login")
+  function signUp() {
+    var data = "first_name=" + encodeURIComponent(fname);
+    data += "&last_name=" + encodeURIComponent(lname);
+    data += "&username=" + encodeURIComponent(username);
+    data += "&password=" + encodeURIComponent(password);
+    data += "&email=" + encodeURIComponent(email);
+    fetch('http://172.20.10.11:3030/auth/signUp', {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: data
+    }).then(res => {
+      console.log("What is happening here: ");
+      if (res.status !== 400) {
+        props.setIsLoggedIn(true);
+      } else {
+        alert("Username already taken")
+      }
+    }).catch(err => {
+      console.log(err);
+    });
   }
 
   return (
@@ -86,7 +102,7 @@ export default function App(props) {
   </View>
     
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-end', marginBottom: 10,}}>
-  <TouchableHighlight onPress={()=>{changePage()}}
+  <TouchableHighlight onPress={()=>{signUp()}}
         style={{
           justifyContent: "center",
           width: 300,

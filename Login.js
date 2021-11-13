@@ -2,8 +2,9 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { Dimensions } from 'react-native';
 import { StyleSheet, Text, View, TextInput, Button, Image, ImageBackground, TouchableHighlight } from 'react-native';
-import { withSafeAreaInsets } from 'react-native-safe-area-context';
-import { NavigationContainer } from '@react-navigation/native';
+import axios from 'axios';
+
+
 export default function App(props) {
   const [fname, setFname] = React.useState("");
   const [lname, setLname] = React.useState("");
@@ -12,8 +13,24 @@ export default function App(props) {
   const [password, setPassword] = React.useState("");
   const [number, onChangeNumber] = React.useState(null);
 
-  function changePage() {
-      navigation.navigate("SignUp")
+  function login() {
+    var data = "&username=" + encodeURIComponent(username);
+    data += "&password=" + encodeURIComponent(password);
+    return fetch('http://172.20.10.11:3030/auth/login', {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: data
+    }).then(res => {
+      if (res.status === 200) {
+        props.setIsLoggedIn(true);
+      } else {
+        alert('Username or Password is incorrect');
+      }
+    }).catch(err => {
+      console.log(err);
+    });
   }
 
   return (
@@ -55,7 +72,7 @@ export default function App(props) {
   </View>
     
     <View style={{flex: 1, alignItems: 'center', marginBottom: 10,}}>
-  <TouchableHighlight onPress={()=>{changePage()}}
+  <TouchableHighlight onPress={()=>{login()}}
         style={{
           justifyContent: "center",
           width: 300,

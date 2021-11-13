@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
 import { StyleSheet, Text, View, TextInput, Button, Dimensions, Image, ImageBackground, TouchableHighlight } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faCogs, faGamepad, faPenSquare, faTimes, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faGamepad, faPenSquare, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import groupsScreen from './screens/groupsScreen';
@@ -54,9 +54,9 @@ export default function App() {
       : 
       isSigningUp ? 
           isLoggingIn ?
-          <Login setIsLoggingIn={setIsLoggingIn}/>
+          <Login setIsLoggedIn={setIsLoggedIn} setIsLoggingIn={setIsLoggingIn}/>
         :
-          <SignUp setIsLoggingIn={setIsLoggingIn} />
+          <SignUp setIsLoggedIn={setIsLoggedIn} setIsLoggingIn={setIsLoggingIn} />
         :
       <View style={styles.container}>
       <Image
@@ -80,7 +80,7 @@ export default function App() {
                 >
                   <Text style={{color: 'white'}}>Get Started</Text>
                 </TouchableHighlight>
-                <View style={{flex: 1, flexDirection: 'row', width: Dimensions. get('window'). width, alignItems: 'center', justifyContent: 'center',}}><Text style={styles.blue}>Already Have an account?</Text><TouchableHighlight onPress={()=>{}}><Text style={styles.blue}>Login Here</Text></TouchableHighlight></View> 
+                <View style={{flex: 1, flexDirection: 'row', width: Dimensions. get('window'). width, alignItems: 'center', justifyContent: 'center',}}><Text style={styles.blue}>Already Have an account?</Text><TouchableHighlight onPress={()=>{setIsSigningUp(true); setIsLoggingIn(true);}}><Text style={styles.blue}>Login Here</Text></TouchableHighlight></View> 
             </ImageBackground>
           </View>
         </View>
