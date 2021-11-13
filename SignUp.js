@@ -1,7 +1,9 @@
 import React from 'react';
 import { Dimensions } from 'react-native';
-import { StyleSheet, Text, View, TextInput, Button, Image, ImageBackground, TouchableHighlight } from 'react-native';
-
+import { StyleSheet, Text, View, ScrollView, TextInput, Button, Image, ImageBackground, TouchableHighlight } from 'react-native';
+import { withSafeAreaInsets } from 'react-native-safe-area-context';
+import { NavigationContainer } from '@react-navigation/native';
+import Login from './Login';
 export default function App(props) {
   const [fname, setFname] = React.useState("");
   const [lname, setLname] = React.useState("");
@@ -15,7 +17,7 @@ export default function App(props) {
     data += "&username=" + encodeURIComponent(username);
     data += "&password=" + encodeURIComponent(password);
     data += "&email=" + encodeURIComponent(email);
-    fetch('http://172.20.10.11:3030/auth/signUp', {
+    fetch('http://172.20.10.7:3030/auth/signUp', {
       method: "POST",
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -34,10 +36,11 @@ export default function App(props) {
   }
 
   return (
+    <ScrollView style={styles.scrollView}>
     <View style={styles.container}>
     <Image
   source={ require("./assets/logo.png") }
-  style={{margin: 20, marginBottom: 0, width: 100, height: 70, resizeMode: 'contain' }}></Image>
+  style={{margin: 20, marginBottom: 10, width: 100, height: 70, resizeMode: 'contain' }}></Image>
   <View style={styles.holder}>
     <Text style={{fontSize: 30, marginBottom: 5, color: 'white', }}>Sign Up</Text>
     <View
@@ -104,30 +107,30 @@ export default function App(props) {
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-end', marginBottom: 10,}}>
   <TouchableHighlight onPress={()=>{signUp()}}
         style={{
+          marginTop: 30,
           justifyContent: "center",
           width: 300,
           height: 50,
           alignItems: "center",
           backgroundColor: "#7839a4",
           borderRadius: 5,
-          marginBottom: 10,
+          marginBottom: 30,
         }}>
          <Text style={{color: 'white'}}>Sign Up</Text>
       </TouchableHighlight>
-    <View style={{flex: 0, flexDirection: 'row', width: Dimensions. get('window'). width, alignItems: 'center', justifyContent: 'center',}}><Text style={styles.blue}>Already have an account?</Text><TouchableHighlight onPress={()=>{props.setIsLoggingIn(true)}}><Text style={{fontSize: 17,
-    fontFamily: 'Roboto',
+    <View style={{flex: 0, flexDirection: 'row',marginBottom:100, width: Dimensions. get('window'). width, alignItems: 'center', justifyContent: 'center',}}><Text style={styles.blue}>Already have an account?</Text><TouchableHighlight onPress={()=>{props.setIsLoggingIn(true)}}><Text style={{fontSize: 17,
     color: 'white',
     textAlign: "center",
-    margin: 3,}}>Login</Text></TouchableHighlight></View> 
+    margin: 10,}}>Login</Text></TouchableHighlight></View> 
     </View>
     </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: Dimensions. get('window'). height,
     backgroundColor: '#1B1D21',
     alignItems: 'center',
     
@@ -155,8 +158,11 @@ const styles = StyleSheet.create({
    flex: 1,
    padding: 30,
   },
+     scrollView: {
+      backgroundColor: '#1B1D21',
+      height:9000
+  },
   haveaccount: {
-
   height: 500
   },
   hatext: {
