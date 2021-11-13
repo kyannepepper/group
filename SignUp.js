@@ -17,7 +17,7 @@ export default function App(props) {
     data += "&username=" + encodeURIComponent(username);
     data += "&password=" + encodeURIComponent(password);
     data += "&email=" + encodeURIComponent(email);
-    fetch('http://172.20.10.7:3030/auth/signUp', {
+    fetch('http://172.20.10.3:3030/auth/signUp', {
       method: "POST",
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'

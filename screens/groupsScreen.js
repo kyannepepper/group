@@ -1,18 +1,39 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Dimensions } from 'react-native';
 import { StyleSheet, Text, View, TextInput, Button, Image, ImageBackground, TouchableHighlight } from 'react-native';
-import { withSafeAreaInsets } from 'react-native-safe-area-context';
-import { NavigationContainer } from '@react-navigation/native';
+import CreateGroup from '../CreateGroup';
+import GroupClickable from '../GroupClickable';
+
 export default function groupsScreen() {
-  const [fname, setFname] = React.useState("");
-  const [lname, setLname] = React.useState("");
-  const [username, setUsername] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [number, onChangeNumber] = React.useState(null);
+  const [creating, setCreating] = useState(true);
+  const [groups, setGroups] = useState([]);
+
+  useEffect(() => {
+    fetch('http://172.20.10.3:3030/api/groups', {
+      method: "GET",
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+    }).then(async res => {
+      console.log("What is happening here: ");
+      if (res.status === 200) {
+        let data = await res.text();
+        data = JSON.parse(data);
+        setGroups(data);
+      } else {
+        alert("Unable to create Group");
+      }
+    }).catch(err => {
+      console.log(err);
+    });
+  }, [])
+
+  const groupComponents = groups.map(group => (<GroupClickable title={group.group_name} isGroup={true} description={group.description}></GroupClickable>));
 
   return (
+    <>
+    { creating ? 
     <View style={styles.container}>
     <View style={{backgroundColor: '#7839a4', width: Dimensions. get('window'). width, alignItems: 'center', height: 100, justifyContent: 'space-between', flex: 0, flexDirection: 'row', paddingTop:20,}}>
     <Image
@@ -23,12 +44,13 @@ export default function groupsScreen() {
   style={{marginLeft: 30, marginBottom: 0, width: 100, height: 50, resizeMode: 'contain' }}></Image>
     </View>
 
-
-    <View style={styles.infobox}><Text style={{color: 'white', fontSize: 30, textAlign: 'center',}}>+ Create Group</Text></View>
-    
-
-
+      {groupComponents}
+    <TouchableHighlight onPress={() => {setCreating(false)}}><View style={styles.infobox}><Text style={{color: 'white', fontSize: 30, textAlign: 'center',}}>+ Create Group</Text></View></TouchableHighlight>
     </View>
+    :
+    <CreateGroup setCreating={setCreating}/>
+    }
+    </>
   );
 }
 
