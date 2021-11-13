@@ -4,7 +4,7 @@ import { Dimensions } from 'react-native';
 import { StyleSheet, Text, View, TextInput, Button, Image, ImageBackground, TouchableHighlight } from 'react-native';
 import { withSafeAreaInsets } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
-export default function GroupClickable() {
+export default function GroupClickable(props) {
   const [fname, setFname] = React.useState("");
   const [lname, setLname] = React.useState("");
   const [username, setUsername] = React.useState("");
@@ -22,15 +22,18 @@ export default function GroupClickable() {
 
   <View style={styles.infobox}>
 
-        <Text style={{color: 'white', fontSize: 30, textAlign: 'center',}}>CHIMICHANGAS!!!!!</Text>
-        <View style={{flex: 0, flexDirection: 'row',  alignItems: 'center'}}>
+        <Text style={{color: 'white', fontSize: 30, textAlign: 'center',}}>{props.title}</Text>
+        {props.isGroup &&
+          <View style={{flex: 0, flexDirection: 'row',  alignItems: 'center'}}>
             <Text style={{color: 'white'}}>Admin:</Text>
             <Image
-  source={ require("./assets/women.jpg") }
-  style={{ margin: 5, width: 50, height: 50, resizeMode: 'contain', borderBottomLeftRadius: 50, borderBottomRightRadius: 50,borderTopLeftRadius: 50, borderTopRightRadius: 50, overflow: 'hidden', }}></Image>
+              source={ require("./assets/women.jpg") }
+              style={{ margin: 5, width: 50, height: 50, resizeMode: 'contain', borderBottomLeftRadius: 50, borderBottomRightRadius: 50,borderTopLeftRadius: 50, borderTopRightRadius: 50, overflow: 'hidden', }}></Image>
             <Text style={{color: 'white'}}>First Last</Text>
-        </View>
-        <Text style={{color: 'white', }}>Descriptions: Lots of stuff</Text>
+          </View>
+        }
+        
+        <Text style={{color: 'white', }}>{'Description: ' + props.description}</Text>
     
     </View>
 

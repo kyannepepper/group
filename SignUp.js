@@ -7,7 +7,7 @@ import Login from './Login';
 export default function App(props) {
   const [fname, setFname] = React.useState("");
   const [lname, setLname] = React.useState("");
-  const [username, setUsername] = React.useState("Chinese");
+  const [username, setUsername] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
@@ -17,7 +17,7 @@ export default function App(props) {
     data += "&username=" + encodeURIComponent(username);
     data += "&password=" + encodeURIComponent(password);
     data += "&email=" + encodeURIComponent(email);
-    fetch('http://172.20.10.7:3030/auth/signUp', {
+    fetch('http://172.20.10.11:3030/auth/signUp', {
       method: "POST",
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'

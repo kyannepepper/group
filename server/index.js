@@ -10,6 +10,8 @@ const express = require('express'),
     userCtrl = require('./controllers/userCtrl'),
     messagesCtrl = require('./controllers/messagesCtrl'),
     groupCtrl = require('./controllers/groupCtrl'),
+    pollCtrl = require('./controllers/pollCtrl'),
+    optionCtrl = require('./controllers/optionCtrl'),
     {SERVER_PORT, SESSION_SECRET} = process.env
 
 app.use(express.urlencoded({ extended: true }));
@@ -46,6 +48,9 @@ app.delete('/api/groups/:id', groupCtrl.deleteGroup);
 app.post('/api/request', groupCtrl.createRequest);
 app.put('/api/request', groupCtrl.acceptRequest);
 app.delete('/api/request/:id', groupCtrl.deleteGroup);
+
+app.post('/api/polls', pollCtrl.createPoll);
+app.post('api/options', optionCtrl.createOption);
 
 // app.use(express.static(__dirname + '/../build'));
 
