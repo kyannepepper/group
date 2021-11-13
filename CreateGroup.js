@@ -9,8 +9,27 @@ export default function CreateGroup(props) {
   const [description, setDescription] = React.useState("");
   const [friends, setFriends] = React.useState("");
 
-  function changePage() {
-      navigation.navigate("SignUp")
+  function createGroup(props) {
+    console.log("RUNNING");
+    var data = "description=" + encodeURIComponent(description);
+    data += "&group_name=" + encodeURIComponent(username);
+    fetch('http://172.20.10.3:3030/api/groups', {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: data
+    }).then(res => {
+      console.log("What is happening here: ");
+      console.log(res.status);
+      if (res.status === 200) {
+        props.setCreating(true);
+      } else {
+        alert("Unable to create Group");
+      }
+    }).catch(err => {
+      console.log(err);
+    });
   }
 
   return (
@@ -24,7 +43,7 @@ export default function CreateGroup(props) {
   style={{marginLeft: 30, marginBottom: 0, width: 100, height: 50, resizeMode: 'contain' }}></Image>
     </View>
   <View style={styles.holder}>
-    <Text style={{fontSize: 30, marginBottom: 5, color: 'white', }}>Create Group</Text>
+      <Text style={{fontSize: 30, marginBottom: 5, color: 'white', }}>Create Group</Text>
     <View
   style={{
     borderBottomColor: '#7839a4',
@@ -77,7 +96,7 @@ export default function CreateGroup(props) {
   </View>
     
     <View style={{flex: 1, alignItems: 'center', marginTop: 50, marginBottom: 10,}}>
-  <TouchableHighlight onPress={()=>{changePage()}}
+  <TouchableHighlight onPress={()=>{createGroup()}}
         style={{
           justifyContent: "center",
           width: 300,
